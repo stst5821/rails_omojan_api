@@ -7,3 +7,22 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+names = [
+  'たたかい',
+  '広場',
+  'テニス',
+  '神',
+  '言い訳',
+  'スロット',
+  'マリオ',
+  'ハンバーガー',
+  '野球',
+  'ゴルフ'
+]
+
+names.each do |name|
+  Main.create!(name: name)
+end
+
+puts "メインデータの作成が完了しました"
