@@ -1,19 +1,32 @@
 module Api
   class MainController < ApplicationController
     def index
-      @data = [
-        { id: 1, name: "rails" },
-        { id: 2, name: "ruby" },
-        { id: 3, name: "python" },
-        { id: 4, name: "javascript" },
-        { id: 5, name: "typescript" },
-        { id: 6, name: "react" },
-        { id: 7, name: "vue" },
-        { id: 8, name: "angular" },
-        { id: 9, name: "svelte" },
-        { id: 10, name: "next.js" },
-      ]
-      render json: @data
+      @mains = Main.all
+      render json: {
+        status: 'success',
+        data: @mains
+      }, status: :ok
+    end
+
+    def create
+      @main = Main.new(main_params)
+      if @main.save
+        render json: {
+          status: 'success',
+          data: @main
+        }, status: :ok
+      else
+        render json: {
+          status: 'error',
+          message: @main.errors.full_messages
+        }, status: :unprocessable_entity
+      end
+    end
+
+    private
+
+    def main_params
+      params.require(:main).permit(:name)
     end
   end
 end
